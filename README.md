@@ -4,7 +4,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 
-This project is created to have some fun while learning React and all its echosystem. Contributions of any kind are all welcome. Feel free to open an issue to suggest features, report bugs or get help. Before submitting a pull request, please check out the [contributing guidelines]() for more details about the project standards.
+This project is created to have some fun while learning React and all its echosystem. Contributions of any kind are all welcome. Feel free to open an issue to suggest features, report bugs or get help. Before submitting a pull request, please check out the [contributing guidelines](https://github.com/Wgil/memory-game/blob/development/CONTRIBUTING.md) for more details about the project standards.
 
 Have fun!
   
