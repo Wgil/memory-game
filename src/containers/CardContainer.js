@@ -14,18 +14,24 @@ class CardContainer extends Component {
   }
 
 
-  cardFlip = (props) => {
+  flip = (props) => {
     //Adjust property of Flipped on the card to be true
-    props.flipped = true;
+    props.flipped = !props.flipped;
     //Change State of Flipped Card, Needed in Order for CSS Transition to Work
-    this.setState({flipped: true})
+    this.setState(prevState => {
+      return {flipped: !prevState.flipped};
+    });
   }
 
 
 
   render() {
     return (
-      <Card className={this.state.flipped ? 'flip backofCard' : 'fade'} onClick={() => this.cardFlip(this.props.card)}/>
+      <Card className={this.state.flipped ? 'card is-flipped' : 'card fade'} onClick={() => this.flip(this.props.card)}>
+        {/* The below could be seperate into child components of the Card or embeded as found here  */}
+        <div className="card__face card__face--front"><p align="center">FRONT</p></div> 
+        <div className="card__face card__face--back"><p align="center">BACK</p></div>  
+      </Card>
     )
   }
 }
