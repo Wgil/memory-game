@@ -1,0 +1,30 @@
+.fade {
+    opacity: 1;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+    }
+ 
+.fade:hover {
+   opacity: 0.5;
+}
+.flip
+{
+    height: 200px;
+    width: 200px;
+    display: block;
+    transform-style: preserve-3d;
+    transition: all 1s ease-in-out;
+    width: 100%;
+    transform: rotateY(180deg);
+}
+
+.backofCard {
+    height: 200px;
+    width: 200px;
+    background: #eaeaed;
+    color: #0087cc;
+    line-height: 150px;
+    text-align: center;
+    transform: rotateY(180deg);
+  }
