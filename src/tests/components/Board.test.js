@@ -19,7 +19,7 @@ describe('Board', () => {
       ).toThrow();
     });
   
-    it('cards must an array of valid cards', () => {
+    it('cards must be an array of valid cards', () => {
       const cards = [42];
       expect(
         () => shallow(<Board cards={cards} />)
@@ -27,7 +27,7 @@ describe('Board', () => {
     });
   });
 
-  it('should have 2 `CardContainer`', () => {
+  it('should render 2 `CardContainer`', () => {
     const cards = [
       {
         "id": 1,
