@@ -20,5 +20,22 @@
     "enzyme": "^3.5.0",
     "enzyme-adapter-react-16": "^1.3.0",
     "all-contributors-cli": "^5.4.0"
+  },
+  "jest": {
+    "collectCoverageFrom" : [
+      "src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/path/to/dir/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "coverageReporters": ["text"],
+    "snapshotSerializers": ["my-serializer-module"]
   }
 }
