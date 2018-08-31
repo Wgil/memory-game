@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
-import CardPropType from '../propTypes/CardPropType';
-import CardContainer from '../containers/CardContainer';
+import CardPropType from "../propTypes/CardPropType";
+import CardContainer from "../containers/CardContainer";
 
 const Grid = styled.div`
   display: grid;
@@ -15,12 +15,14 @@ const Grid = styled.div`
 
 const Board = ({ cards }) => (
   <Grid>
-    { cards.map(card => <CardContainer key={card.id} card={card} />) }
+    {cards.map(card => (
+      <CardContainer key={card.id} card={card} />
+    ))}
   </Grid>
 );
 
 Board.propTypes = {
   cards: PropTypes.arrayOf(CardPropType).isRequired
-}
+};
 
 export default Board;

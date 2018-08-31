@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Board from './../components/Board';
-import cards from './../cards';
+import Board from "./../components/Board";
+import cards from "./../cards";
 
 class BoardContainer extends Component {
   render() {
-    return (
-      <Board cards={cards} />
-    )
+    return <Board cards={cards} />;
   }
 }
 

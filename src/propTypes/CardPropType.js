@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const CardPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
