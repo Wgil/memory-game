@@ -1,7 +1,7 @@
 
 #  Memory Game
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 
 This project is created to have some fun while learning React and all its echosystem. Contributions of any kind are all welcome. Feel free to open an issue to suggest features, report bugs or get help. Before submitting a pull request, please check out the [contributing guidelines](https://github.com/Wgil/memory-game/blob/development/CONTRIBUTING.md) for more details about the project standards.
@@ -28,9 +28,9 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
   
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
 <!-- prettier-ignore -->
-
+| [<img src="https://avatars0.githubusercontent.com/u/12837326?v=4" width="100px;"/><br /><sub><b>Jesus Morales</b></sub>](https://github.com/Hmerin)<br />[🚇](#infra-Hmerin "Infrastructure (Hosting, Build-Tools, etc)") |
+| :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
   
