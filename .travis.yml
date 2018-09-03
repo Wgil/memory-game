@@ -3,9 +3,10 @@ node_js:
   - "6"
 install:
   - npm install
+  - npm install -g codecov
 cache:
   directories:
     - node_modules
 script:
   - npm run build
-  - npm test
+  - npm run coverage && codecov

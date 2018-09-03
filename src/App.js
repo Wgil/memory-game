@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import BoardContainer from './containers/BoardContainer';
+import React, { Component } from "react";
+
+import BoardContainer from "./containers/BoardContainer";
 
 class App extends Component {
   render() {
-    return (
-      <BoardContainer />
-    )
+    return <BoardContainer />;
   }
 }
 
