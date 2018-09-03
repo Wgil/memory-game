@@ -15,7 +15,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "coverage": "npm run test -- --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.0",
