@@ -29,7 +29,39 @@ describe("CardContainer", () => {
     });
   });
 
-  it("Renders a `Card`", () => {
-    expect(wrapper.contains(<Card />)).toBeTruthy();
+  it("should not be flipped", () => {
+    expect(wrapper.state().flipped).toBeFalsy();
+  });
+
+  it("pass flipped state to the Card", () => {
+    expect(wrapper.find(Card).props().flipped).toBeFalsy();
+  });
+
+  describe("User clicks the card", () => {
+    beforeEach(() => {
+      wrapper
+        .find(Card)
+        .first()
+        .simulate("click");
+    });
+
+    it("and the card flips", () => {
+      expect(wrapper.state().flipped).toBeTruthy();
+      expect(wrapper.find(Card).props().flipped).toBeTruthy();
+    });
+
+    describe("and clicks the card again", () => {
+      beforeEach(() => {
+        wrapper
+          .find(Card)
+          .first()
+          .simulate("click");
+      });
+
+      it("and the card flips", () => {
+        expect(wrapper.state().flipped).toBeFalsy();
+        expect(wrapper.find(Card).props().flipped).toBeFalsy();
+      });
+    });
   });
 });
