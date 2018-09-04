@@ -1,30 +1,24 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import Card from "./../components/Card";
 import CardPropType from "./../propTypes/CardPropType";
 
 class CardContainer extends Component {
-  state = {
-    flipped: false
-  };
-
-  flip = () => {
-    this.setState(prevState => {
-      return { flipped: !prevState.flipped };
-    });
-  };
-
   handleClick = () => {
-    this.flip();
+    this.props.onClick();
   };
 
   render() {
-    return <Card flipped={this.state.flipped} onClick={this.handleClick} />;
+    return (
+      <Card flipped={this.props.card.flipped} onClick={this.handleClick} />
+    );
   }
 }
 
 CardContainer.propTypes = {
-  card: CardPropType.isRequired
+  card: CardPropType.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default CardContainer;
