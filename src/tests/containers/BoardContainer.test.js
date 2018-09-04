@@ -35,16 +35,34 @@ describe("BoardContainer", () => {
     });
 
     describe("Then clicks another card", () => {
-      beforeEach(() => {
-        const board = wrapper.find(Board).first();
-        board.simulate("cardClick", 3);
-      });
-
       describe("and they are not siblings", () => {
+        beforeEach(() => {
+          const board = wrapper.find(Board).first();
+          board.simulate("cardClick", 3);
+        });
+
         it("both cards should flip back", () => {
           expect(wrapper.state().cards[0].flipped).toBeFalsy();
           expect(wrapper.state().cards[2].flipped).toBeFalsy();
         });
+      });
+
+      describe("and they are siblings", () => {
+        beforeEach(() => {
+          const board = wrapper.find(Board).first();
+          board.simulate("cardClick", 2);
+        });
+
+        it("both cards should not be playable anymore", () => {
+          expect(wrapper.state().cards[0].played).toBeTruthy();
+          expect(wrapper.state().cards[1].played).toBeTruthy();
+        });
+
+        // it("should not be clickeable after played", () => {
+        //   const board = wrapper.find(Board).first();
+        //   board.simulate("cardClick", 1);
+        //   expect(wrapper.state().cards[0].flipped).toBeFalsy();
+        // });
       });
     });
 

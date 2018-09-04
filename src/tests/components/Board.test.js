@@ -12,13 +12,15 @@ describe("Board", () => {
       id: 1,
       sibling_id: 2,
       front: "1",
-      flipped: false
+      flipped: false,
+      played: false
     },
     {
       id: 2,
       sibling_id: 1,
       front: "1",
-      flipped: false
+      flipped: false,
+      played: false
     }
   ];
 

@@ -12,7 +12,8 @@ describe("CardContainer", () => {
       id: 1,
       sibling_id: 2,
       front: "#FFF",
-      flipped: false
+      flipped: false,
+      played: false
     };
     wrapper = shallow(<CardContainer card={card} onClick={onClick} />);
   });
@@ -39,7 +40,8 @@ describe("CardContainer", () => {
         id: 1,
         sibling_id: 2,
         front: "#FFF",
-        flipped: false
+        flipped: false,
+        played: false
       };
       expect(() => {
         shallow(<CardContainer card={card} />);
@@ -50,7 +52,8 @@ describe("CardContainer", () => {
           id: 1,
           sibling_id: 2,
           front: "#FFF",
-          flipped: false
+          flipped: false,
+          played: false
         };
         expect(() => {
           shallow(<CardContainer card={card} onClick={1} />);
