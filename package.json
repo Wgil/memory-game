@@ -14,10 +14,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-<<<<<<< HEAD
-=======
     "coverage": "npm run test -- --coverage",
->>>>>>> 9bc615ae7fb869f68a8bb4220163dadf24f0fbbd
     "eject": "react-scripts eject",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
