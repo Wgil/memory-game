@@ -9,70 +9,65 @@ class BoardContainer extends Component {
     flippedCards: []
   };
 
-  flipCard = card => {
+  flipCard = id => {
     this.setState(prevState => ({
-      cards: prevState.cards.map(stateCard => {
-        stateCard = Object.assign({}, stateCard);
-        if (stateCard.id === card.id) {
-          stateCard.flipped = !stateCard.flipped;
-          card = stateCard;
-        }
-        return stateCard;
-      }),
+      cards: prevState.cards.map(card => {
+        return id === card.id
+          ? Object.assign({}, card, { flipped: !card.flipped })
+          : Object.assign({}, card);
+      })
+    }));
+  };
+
+  flipCards = cards => cards.map(card => this.flipCard(card.id));
+
+  addFlippedCard = card => {
+    card = Object.assign({}, card, { flipped: true });
+    this.setState(prevState => ({
       flippedCards:
-        prevState.flippedCards.length > 1
-          ? [Object.assign({}, card)]
-          : [...this.state.flippedCards, Object.assign({}, card)]
+        prevState.flippedCards.length < 2
+          ? [...prevState.flippedCards, card]
+          : [card]
     }));
   };
 
-  flipCards = cards => cards.map(this.flipCard);
-
-  playCard = card => {
+  playCard = id => {
     this.setState(prevState => ({
-      cards: prevState.cards.map(stateCard => {
-        stateCard = Object.assign({}, stateCard);
-        if (stateCard.id === card.id) {
-          stateCard.played = true;
-        }
-
-        return stateCard;
-      }),
-      flippedCards: prevState.flippedCards.filter(
-        flipped => flipped.id !== card.id
-      )
+      cards: prevState.cards.map(card => {
+        return id === card.id
+          ? Object.assign({}, card, { played: true })
+          : Object.assign({}, card);
+      })
     }));
   };
 
-  playCards = () => this.state.flippedCards.map(this.playCard);
-
-  clearFlipped = card => {
-    this.flipCards(this.state.flippedCards);
-    this.setState(prevState => ({
-      ...prevState,
-      flippedCards: [Object.assign({}, card)]
-    }));
-  };
+  playCards = () => this.state.flippedCards.map(card => this.playCard(card.id));
 
   cardCanFlip = card =>
     !card.played && !(this.state.flippedCards.length && card.flipped);
 
-  checkFlippedCards = card => {
-    const wrongCards =
-      this.state.flippedCards[0].id !== this.state.flippedCards[1].sibling_id;
-    if (wrongCards) {
-      this.clearFlipped(card);
-    } else {
+  areFlippedCardsPair = () =>
+    this.state.flippedCards[0].id === this.state.flippedCards[1].sibling_id;
+
+  verifyFlippedCards = card => {
+    if (this.areFlippedCardsPair()) {
       this.playCards();
     }
+    this.flipCards(this.state.flippedCards);
   };
 
   handleCardClick = id => {
     const card = this.state.cards.find(card => card.id === id);
-    if (this.cardCanFlip(card)) this.flipCard(card);
+
+    if (!this.cardCanFlip(card)) {
+      return;
+    }
+
+    this.flipCard(card.id);
+    this.addFlippedCard(card);
 
     if (this.state.flippedCards.length > 1) {
-      this.checkFlippedCards(card);
+      this.verifyFlippedCards(card);
     }
   };
 

@@ -58,11 +58,11 @@ describe("BoardContainer", () => {
           expect(wrapper.state().cards[1].played).toBeTruthy();
         });
 
-        // it("should not be clickeable after played", () => {
-        //   const board = wrapper.find(Board).first();
-        //   board.simulate("cardClick", 1);
-        //   expect(wrapper.state().cards[0].flipped).toBeFalsy();
-        // });
+        it("should not be clickeable after played", () => {
+          const board = wrapper.find(Board).first();
+          board.simulate("cardClick", 1);
+          expect(wrapper.state().cards[0].flipped).toBeFalsy();
+        });
       });
     });
 
