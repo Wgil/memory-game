@@ -13,16 +13,21 @@ const Grid = styled.div`
   grid-gap: 20px;
 `;
 
-const Board = ({ cards }) => (
+const Board = ({ cards, onCardClick }) => (
   <Grid>
     {cards.map(card => (
-      <CardContainer key={card.id} card={card} />
+      <CardContainer
+        key={card.id}
+        card={card}
+        onClick={() => onCardClick(card.id)}
+      />
     ))}
   </Grid>
 );
 
 Board.propTypes = {
-  cards: PropTypes.arrayOf(CardPropType).isRequired
+  cards: PropTypes.arrayOf(CardPropType).isRequired,
+  onCardClick: PropTypes.func.isRequired
 };
 
 export default Board;

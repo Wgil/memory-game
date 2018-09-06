@@ -6,13 +6,20 @@ import Card from "./../../components/Card";
 
 describe("CardContainer", () => {
   let wrapper;
+  const onClick = jest.fn();
   beforeEach(() => {
-    let card = {
+    const card = {
       id: 1,
-      sibling_id: 2,
-      front: "#FFF"
+      pair_id: 2,
+      front: "#FFF",
+      flipped: false,
+      played: false
     };
-    wrapper = shallow(<CardContainer card={card} />);
+    wrapper = shallow(<CardContainer card={card} onClick={onClick} />);
+  });
+
+  afterEach(() => {
+    onClick.mockClear();
   });
 
   describe("props", () => {
@@ -27,13 +34,35 @@ describe("CardContainer", () => {
         shallow(<CardContainer card={{}} />);
       }).toThrow();
     });
+
+    it("must receive `onClick` prop", () => {
+      const card = {
+        id: 1,
+        pair_id: 2,
+        front: "#FFF",
+        flipped: false,
+        played: false
+      };
+      expect(() => {
+        shallow(<CardContainer card={card} />);
+      }).toThrow();
+
+      it("`onClick` should be a function", () => {
+        const card = {
+          id: 1,
+          pair_id: 2,
+          front: "#FFF",
+          flipped: false,
+          played: false
+        };
+        expect(() => {
+          shallow(<CardContainer card={card} onClick={1} />);
+        }).toThrow();
+      });
+    });
   });
 
-  it("should not be flipped", () => {
-    expect(wrapper.state().flipped).toBeFalsy();
-  });
-
-  it("pass flipped state to the Card", () => {
+  it("pass flipped as false to the Card", () => {
     expect(wrapper.find(Card).props().flipped).toBeFalsy();
   });
 
@@ -45,23 +74,8 @@ describe("CardContainer", () => {
         .simulate("click");
     });
 
-    it("and the card flips", () => {
-      expect(wrapper.state().flipped).toBeTruthy();
-      expect(wrapper.find(Card).props().flipped).toBeTruthy();
-    });
-
-    describe("and clicks the card again", () => {
-      beforeEach(() => {
-        wrapper
-          .find(Card)
-          .first()
-          .simulate("click");
-      });
-
-      it("and the card flips", () => {
-        expect(wrapper.state().flipped).toBeFalsy();
-        expect(wrapper.find(Card).props().flipped).toBeFalsy();
-      });
+    it("and it calls `onClick` prop", () => {
+      expect(onClick.mock.calls.length).toBe(1);
     });
   });
 });
