@@ -3,72 +3,83 @@ import React, { Component } from "react";
 import Board from "./../components/Board";
 import cards from "./../cards";
 
+const MAX_FLIPPED_CARDS = 2;
+
 class BoardContainer extends Component {
   state = {
     cards: cards,
     flippedCards: []
   };
 
-  flipCard = id => {
-    this.setState(prevState => ({
-      cards: prevState.cards.map(card => {
-        return id === card.id
-          ? Object.assign({}, card, { flipped: !card.flipped })
-          : Object.assign({}, card);
-      })
-    }));
+  flipCard = card => {
+    this.setState(
+      prevState => ({
+        cards: prevState.cards.map(c => {
+          return card.id === c.id
+            ? Object.assign({}, c, { flipped: !c.flipped })
+            : Object.assign({}, c);
+        })
+      }),
+      () => {
+        if (!card.flipped) this.addFlippedCard(card);
+        else this.clearFlippedCards();
+      }
+    );
   };
 
-  flipCards = cards => cards.map(card => this.flipCard(card.id));
+  flipCards = cards => cards.map(this.flipCard);
+
+  clearFlippedCards = () => this.setState({ flippedCards: [] });
 
   addFlippedCard = card => {
     card = Object.assign({}, card, { flipped: true });
+    this.setState(
+      prevState => ({
+        flippedCards: [...prevState.flippedCards, card]
+      }),
+      () => {
+        if (this.state.flippedCards.length === MAX_FLIPPED_CARDS)
+          setTimeout(this.verifyPairs, 1000);
+      }
+    );
+  };
+
+  verifyPairs = () => {
+    this.areFlippedCardsPair()
+      ? this.playCards()
+      : this.flipCards(this.state.flippedCards);
+  };
+
+  playCard = card => {
     this.setState(prevState => ({
-      flippedCards:
-        prevState.flippedCards.length < 2
-          ? [...prevState.flippedCards, card]
-          : [card]
+      cards: prevState.cards.map(c => {
+        return card.id === c.id
+          ? Object.assign({}, c, { played: true })
+          : Object.assign({}, c);
+      }),
+      flippedCards: []
     }));
   };
 
-  playCard = id => {
-    this.setState(prevState => ({
-      cards: prevState.cards.map(card => {
-        return id === card.id
-          ? Object.assign({}, card, { played: true })
-          : Object.assign({}, card);
-      })
-    }));
+  playCards = () => this.state.flippedCards.map(this.playCard);
+
+  cardCanFlip = card => {
+    const { flippedCards } = this.state;
+    const isCardFlipped = flippedCards.length && card.flipped;
+    return (
+      !card.played &&
+      !isCardFlipped &&
+      flippedCards.length !== MAX_FLIPPED_CARDS
+    );
   };
-
-  playCards = () => this.state.flippedCards.map(card => this.playCard(card.id));
-
-  cardCanFlip = card =>
-    !card.played && !(this.state.flippedCards.length && card.flipped);
 
   areFlippedCardsPair = () =>
     this.state.flippedCards[0].id === this.state.flippedCards[1].sibling_id;
 
-  verifyFlippedCards = card => {
-    if (this.areFlippedCardsPair()) {
-      this.playCards();
-    }
-    this.flipCards(this.state.flippedCards);
-  };
-
   handleCardClick = id => {
     const card = this.state.cards.find(card => card.id === id);
-
-    if (!this.cardCanFlip(card)) {
-      return;
-    }
-
-    this.flipCard(card.id);
-    this.addFlippedCard(card);
-
-    if (this.state.flippedCards.length > 1) {
-      this.verifyFlippedCards(card);
-    }
+    if (!this.cardCanFlip(card)) return;
+    this.flipCard(card);
   };
 
   render() {

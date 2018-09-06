@@ -10,10 +10,6 @@ describe("BoardContainer", () => {
     wrapper = shallow(<BoardContainer />);
   });
 
-  it("Renders a `Board`", () => {
-    expect(wrapper.find(Board).length).toBe(1);
-  });
-
   it("Pass cards state to `Board` as props", () => {
     const board = wrapper.find(Board).first();
     expect(board.props().cards).toEqual(wrapper.state().cards);
@@ -35,6 +31,10 @@ describe("BoardContainer", () => {
     });
 
     describe("Then clicks another card", () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+
       describe("and they are not siblings", () => {
         beforeEach(() => {
           const board = wrapper.find(Board).first();
@@ -42,8 +42,16 @@ describe("BoardContainer", () => {
         });
 
         it("both cards should flip back", () => {
+          jest.runAllTimers();
           expect(wrapper.state().cards[0].flipped).toBeFalsy();
           expect(wrapper.state().cards[2].flipped).toBeFalsy();
+        });
+
+        it("clicks a third one and should not flip", () => {
+          const board = wrapper.find(Board).first();
+          board.simulate("cardClick", 4);
+          jest.runAllTimers();
+          expect(wrapper.state().cards[3].flipped).toBeFalsy();
         });
       });
 
@@ -54,14 +62,25 @@ describe("BoardContainer", () => {
         });
 
         it("both cards should not be playable anymore", () => {
+          jest.runAllTimers();
           expect(wrapper.state().cards[0].played).toBeTruthy();
           expect(wrapper.state().cards[1].played).toBeTruthy();
         });
 
-        it("should not be clickeable after played", () => {
+        it("both cards should not be clickeable after played", () => {
+          jest.runAllTimers();
           const board = wrapper.find(Board).first();
           board.simulate("cardClick", 1);
-          expect(wrapper.state().cards[0].flipped).toBeFalsy();
+          board.simulate("cardClick", 2);
+          expect(wrapper.state().cards[0].flipped).toBeTruthy();
+          expect(wrapper.state().cards[1].flipped).toBeTruthy();
+        });
+
+        it("clicks a third one and should not flip", () => {
+          const board = wrapper.find(Board).first();
+          board.simulate("cardClick", 4);
+          jest.runAllTimers();
+          expect(wrapper.state().cards[3].flipped).toBeFalsy();
         });
       });
     });
