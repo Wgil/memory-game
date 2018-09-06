@@ -35,7 +35,7 @@ describe("BoardContainer", () => {
         jest.useFakeTimers();
       });
 
-      describe("and they are not siblings", () => {
+      describe("and they are not pairs", () => {
         beforeEach(() => {
           const board = wrapper.find(Board).first();
           board.simulate("cardClick", 3);
@@ -55,7 +55,7 @@ describe("BoardContainer", () => {
         });
       });
 
-      describe("and they are siblings", () => {
+      describe("and they are pairs", () => {
         beforeEach(() => {
           const board = wrapper.find(Board).first();
           board.simulate("cardClick", 2);

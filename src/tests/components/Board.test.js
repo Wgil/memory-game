@@ -10,14 +10,14 @@ describe("Board", () => {
   const cards = [
     {
       id: 1,
-      sibling_id: 2,
+      pair_id: 2,
       front: "1",
       flipped: false,
       played: false
     },
     {
       id: 2,
-      sibling_id: 1,
+      pair_id: 1,
       front: "1",
       flipped: false,
       played: false

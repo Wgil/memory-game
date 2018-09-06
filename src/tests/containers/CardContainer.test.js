@@ -10,7 +10,7 @@ describe("CardContainer", () => {
   beforeEach(() => {
     const card = {
       id: 1,
-      sibling_id: 2,
+      pair_id: 2,
       front: "#FFF",
       flipped: false,
       played: false
@@ -38,7 +38,7 @@ describe("CardContainer", () => {
     it("must receive `onClick` prop", () => {
       const card = {
         id: 1,
-        sibling_id: 2,
+        pair_id: 2,
         front: "#FFF",
         flipped: false,
         played: false
@@ -50,7 +50,7 @@ describe("CardContainer", () => {
       it("`onClick` should be a function", () => {
         const card = {
           id: 1,
-          sibling_id: 2,
+          pair_id: 2,
           front: "#FFF",
           flipped: false,
           played: false

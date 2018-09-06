@@ -74,7 +74,7 @@ class BoardContainer extends Component {
   };
 
   areFlippedCardsPair = () =>
-    this.state.flippedCards[0].id === this.state.flippedCards[1].sibling_id;
+    this.state.flippedCards[0].id === this.state.flippedCards[1].pair_id;
 
   handleCardClick = id => {
     const card = this.state.cards.find(card => card.id === id);
