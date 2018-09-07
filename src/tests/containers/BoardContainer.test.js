@@ -6,13 +6,31 @@ import Board from "./../../components/Board";
 
 describe("BoardContainer", () => {
   let wrapper;
+  let onPlay;
   beforeEach(() => {
-    wrapper = shallow(<BoardContainer />);
+    onPlay = jest.fn();
+    wrapper = shallow(<BoardContainer onPlay={onPlay} />);
+  });
+
+  afterEach(() => {
+    onPlay.mockClear();
   });
 
   it("Pass cards state to `Board` as props", () => {
     const board = wrapper.find(Board).first();
     expect(board.props().cards).toEqual(wrapper.state().cards);
+  });
+
+  it("must receive a `onPlay` prop", () => {
+    expect(() => {
+      shallow(<BoardContainer />);
+    }).toThrow();
+  });
+
+  it("must receive a valid `onPlay` prop", () => {
+    expect(() => {
+      shallow(<BoardContainer onPlay={1} />);
+    }).toThrow();
   });
 
   describe("User clicks a card", () => {
@@ -65,6 +83,11 @@ describe("BoardContainer", () => {
           jest.runAllTimers();
           expect(wrapper.state().cards[0].played).toBeTruthy();
           expect(wrapper.state().cards[1].played).toBeTruthy();
+        });
+
+        it("should call `onPlay` prop", () => {
+          jest.runAllTimers();
+          expect(onPlay.mock.calls.length).toBe(2);
         });
 
         it("both cards should not be clickeable after played", () => {
