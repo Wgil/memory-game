@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import Board from "./../components/Board";
 import cards from "./../cards";
@@ -51,14 +52,17 @@ class BoardContainer extends Component {
   };
 
   playCard = card => {
-    this.setState(prevState => ({
-      cards: prevState.cards.map(c => {
-        return card.id === c.id
-          ? Object.assign({}, c, { played: true })
-          : Object.assign({}, c);
+    this.setState(
+      prevState => ({
+        cards: prevState.cards.map(c => {
+          return card.id === c.id
+            ? Object.assign({}, c, { played: true })
+            : Object.assign({}, c);
+        }),
+        flippedCards: []
       }),
-      flippedCards: []
-    }));
+      this.props.onPlay()
+    );
   };
 
   playCards = () => this.state.flippedCards.map(this.playCard);
@@ -88,5 +92,9 @@ class BoardContainer extends Component {
     );
   }
 }
+
+BoardContainer.propTypes = {
+  onPlay: PropTypes.func.isRequired
+};
 
 export default BoardContainer;
