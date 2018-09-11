@@ -10,6 +10,27 @@ class App extends Component {
     gameOver: false
   };
 
+  /* istanbul ignore next */
+  shuffleCards = cards => {
+    var currentIndex = cards.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = cards[currentIndex];
+      cards[currentIndex] = cards[randomIndex];
+      cards[randomIndex] = temporaryValue;
+    }
+
+    return cards;
+  };
+
   playCard = () => {
     this.setState(prevState => ({
       cardsPlayed: prevState.cardsPlayed + 1
@@ -25,7 +46,9 @@ class App extends Component {
       this.setState({ gameOver: true, cardsPlayed: 0 });
   }
 
-  renderBoard = () => <BoardContainer onPlay={this.playCard} />;
+  renderBoard = () => (
+    <BoardContainer onPlay={this.playCard} cards={this.shuffleCards(cards)} />
+  );
 
   renderGameOver = () => <GameOver onRestart={this.restartGame} />;
 

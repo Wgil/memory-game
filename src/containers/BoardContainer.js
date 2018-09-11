@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import Board from "./../components/Board";
-import cards from "./../cards";
+import CardPropType from "../propTypes/CardPropType";
 
 const MAX_FLIPPED_CARDS = 2;
 
 class BoardContainer extends Component {
   state = {
-    cards: cards,
+    cards: this.props.cards,
     flippedCards: []
   };
 
@@ -61,7 +61,7 @@ class BoardContainer extends Component {
         }),
         flippedCards: []
       }),
-      this.props.onPlay()
+      this.props.onPlay
     );
   };
 
@@ -69,11 +69,8 @@ class BoardContainer extends Component {
 
   cardCanFlip = card => {
     const { flippedCards } = this.state;
-    const isCardFlipped = flippedCards.length && card.flipped;
     return (
-      !card.played &&
-      !isCardFlipped &&
-      flippedCards.length !== MAX_FLIPPED_CARDS
+      !card.played && !card.flipped && flippedCards.length !== MAX_FLIPPED_CARDS
     );
   };
 
@@ -94,7 +91,8 @@ class BoardContainer extends Component {
 }
 
 BoardContainer.propTypes = {
-  onPlay: PropTypes.func.isRequired
+  onPlay: PropTypes.func.isRequired,
+  cards: PropTypes.arrayOf(CardPropType).isRequired
 };
 
 export default BoardContainer;

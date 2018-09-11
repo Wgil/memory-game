@@ -1,20 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import Card from "./../components/Card";
 import CardPropType from "./../propTypes/CardPropType";
 
-class CardContainer extends Component {
-  handleClick = () => {
-    this.props.onClick();
-  };
-
-  render() {
-    return (
-      <Card flipped={this.props.card.flipped} onClick={this.handleClick} />
-    );
-  }
-}
+const CardContainer = ({ card, onClick }) => (
+  <Card flipped={card.flipped} onClick={onClick} />
+);
 
 CardContainer.propTypes = {
   card: CardPropType.isRequired,
