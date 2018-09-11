@@ -3,17 +3,37 @@ import { shallow } from "enzyme";
 
 import BoardContainer from "./../../containers/BoardContainer";
 import Board from "./../../components/Board";
+import cards from "../../cards";
 
 describe("BoardContainer", () => {
   let wrapper;
   let onPlay;
   beforeEach(() => {
     onPlay = jest.fn();
-    wrapper = shallow(<BoardContainer onPlay={onPlay} />);
+    wrapper = shallow(<BoardContainer onPlay={onPlay} cards={cards} />);
   });
 
   afterEach(() => {
     onPlay.mockClear();
+  });
+
+  it("must receive cards", () => {
+    expect(() =>
+      shallow(<BoardContainer onCardClick={onCardClick} />)
+    ).toThrow();
+  });
+
+  it("cards must be an array", () => {
+    expect(() =>
+      shallow(<BoardContainer cards={1} onCardClick={onCardClick} />)
+    ).toThrow();
+  });
+
+  it("cards must be an array of valid cards", () => {
+    const cards = [42];
+    expect(() =>
+      shallow(<BoardContainer cards={cards} onCardClick={onCardClick} />)
+    ).toThrow();
   });
 
   it("Pass cards state to `Board` as props", () => {
