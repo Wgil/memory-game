@@ -1,73 +1,68 @@
+/* istanbul ignore file */
 import React from "react";
 import PropTypes from "prop-types";
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-const fader = keyframes `
+const scale = keyframes`
   from {
-    opacity: 1.0;
+    transform: scale(1);
   }
 
   to {
-    opacity: 0.3;
+    transform: scale(0);
   }
 `;
 
-const Container = styled.div `
-  transform: ${props => props.flipped
-  ? "rotateY(180deg)"
-  : ""};
+const BACK_BACKGROUND = "#ffb400cc";
 
-  opacity: 1;
+const Container = styled.div`
   position: relative;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-  background: lightgrey;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #fff;
-  border-radius: 5px;
-  height: 200px;
   width: 200px;
-`;
+  height: 200px;
+  border: 1px solid #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.8s;
+  transform: ${({ flipped }) => (flipped ? "rotateY(180deg)" : "")};
+  transform-style: preserve-3d;
+  animation: ${({ played }) => (played ? `${scale} .2s ease-in forwards` : "")};
 
-const Front = styled.div `
   &:hover {
-    animation: ${fader} 0.5s ease-in forwards;
+    transform: ${({ flipped, played }) =>
+      flipped || played ? "" : "scale(1.08)"};
+    transition-duration: ${({ flipped, played }) =>
+      flipped || played ? "" : "0.3s"};
+    border: 2px solid #333;
   }
+`;
 
-  background: #ffb400cc;
+const Back = styled.div`
   position: absolute;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  background: ${({ played }) => (!played ? BACK_BACKGROUND : "none")};
   backface-visibility: hidden;
 `;
 
-const Back = styled.div `
-  display: ${props => props.flipped
-  ? "block"
-  : "none"};
-
+const Front = styled.div`
   position: absolute;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  background: ${({ flipped, front }) => (flipped ? front : BACK_BACKGROUND)};
+  transform: ${({ played }) => (!played ? "rotateY(180deg)" : "")};
   backface-visibility: hidden;
-  background: lightgray;
-  transform: rotateY(180deg);
 `;
 
-// TODO: Remove this line when the styled-component has covered all the styles.
-/* istanbul ignore next */
-const Card = props => {
-  return (
-    <Container onClick={props.onClick} flipped={props.flipped}>
-      <Front/>
-      <Back flipped={props.flipped}/>
-    </Container>
-  );
-};
+const Card = ({ onClick, flipped, front, played }) => (
+  <Container onClick={onClick} flipped={flipped} front={front} played={played}>
+    <Front flipped={flipped} front={front} played={played} />
+    <Back played={played} />
+  </Container>
+);
 
 Card.propTypes = {
   onClick: PropTypes.func.isRequired,
-  flipped: PropTypes.bool.isRequired
+  flipped: PropTypes.bool.isRequired,
+  played: PropTypes.bool.isRequired
 };
 
 export default Card;
