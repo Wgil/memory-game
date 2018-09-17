@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import CardPropType from "../propTypes/CardPropType";
 import CardContainer from "../containers/CardContainer";
+import FadeIn from "./FadeIn";
 
 const Grid = styled.div`
   display: grid;
@@ -11,6 +12,7 @@ const Grid = styled.div`
   align-self: center;
   grid-column-start: 2;
   grid-gap: 20px;
+  animation: ${FadeIn} 0.5s ease-in forwards;
 `;
 
 const Board = ({ cards, onCardClick }) => (

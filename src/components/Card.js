@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { keyframes } from "styled-components";
 
-const scale = keyframes`
+const Disappear = keyframes`
   from {
     transform: scale(1);
   }
@@ -19,37 +19,55 @@ const Container = styled.div`
   position: relative;
   width: 200px;
   height: 200px;
-  border: 1px solid #fff;
+  border-style: solid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: transform 0.8s;
-  transform: ${({ flipped }) => (flipped ? "rotateY(180deg)" : "")};
+  transition: transform 0.5s;
   transform-style: preserve-3d;
-  animation: ${({ played }) => (played ? `${scale} .2s ease-in forwards` : "")};
+  cursor: pointer;
 
+  ${({ flipped }) =>
+    flipped
+      ? `
+      border-width: 2px;
+      border-color: #333;
+      transform: rotateY(180deg) scale(1.05);
+    `
+      : `
+      border-width: 2px;
+      border-color: #fff;
+
+      &:hover {
+        transform: scale(1.05);
+        border: 2px solid #333;
+      }
+    `}
+  }
+
+  ${({ played }) =>
+    played &&
+    `
+      animation: ${Disappear} .2s ease-in forwards
+    `}
+`;
+
+const Side = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+`;
+
+const Back = styled(Side)`
+  background: ${({ played }) => (!played ? BACK_BACKGROUND : "none")};
+  transition: opacity 0.5s;
   &:hover {
-    transform: ${({ flipped, played }) =>
-      flipped || played ? "" : "scale(1.08)"};
-    transition-duration: ${({ flipped, played }) =>
-      flipped || played ? "" : "0.3s"};
-    border: 2px solid #333;
+    opacity: 0.8;
   }
 `;
 
-const Back = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: ${({ played }) => (!played ? BACK_BACKGROUND : "none")};
-  backface-visibility: hidden;
-`;
-
-const Front = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
+const Front = styled(Side)`
   background: ${({ flipped, front }) => (flipped ? front : BACK_BACKGROUND)};
   transform: ${({ played }) => (!played ? "rotateY(180deg)" : "")};
-  backface-visibility: hidden;
 `;
 
 const Card = ({ onClick, flipped, front, played }) => (
