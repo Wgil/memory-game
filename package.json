@@ -6,6 +6,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-octicon": "^3.0.1",
     "react-scripts": "1.1.5",
     "styled-components": "^3.4.5",
     "uuid": "^3.3.2"

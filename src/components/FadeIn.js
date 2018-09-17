@@ -1,0 +1,14 @@
+/* istanbul ignore file */
+import { keyframes } from "styled-components";
+
+const FadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+export default FadeIn;

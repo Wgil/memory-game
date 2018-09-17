@@ -1,30 +1,26 @@
 import React from "react";
 import { shallow } from "enzyme";
-import GameOver from "../../components/GameOver";
+
+import Menu from "../../components/Menu";
 import Timer from "../../components/Timer";
 import Restart from "../../components/Restart";
 
-describe("`GameOver`", () => {
+describe(`Menu`, () => {
   let wrapper;
-  let onRestart;
+  let onRestart = jest.fn();
   beforeEach(() => {
-    onRestart = jest.fn();
-    wrapper = shallow(<GameOver onRestart={onRestart} />);
+    wrapper = shallow(<Menu onRestart={onRestart} />);
   });
 
-  afterEach(() => {
-    onRestart.mockClear();
-  });
-
-  it("must receive `onRestart` prop", () => {
+  it("should receive a `onRestart` prop", () => {
     expect(() => {
-      shallow(<GameOver />);
+      shallow(<Menu />);
     }).toThrow();
   });
 
   it("must receive a valid `onRestart` prop", () => {
     expect(() => {
-      shallow(<GameOver onRestart={1} />);
+      shallow(<Menu onRestart={1} />);
     }).toThrow();
   });
 
@@ -32,7 +28,7 @@ describe("`GameOver`", () => {
     expect(wrapper.find(Timer).length).toBe(1);
   });
 
-  it("should render a `Restart`", () => {
+  it("should render a `Restart", () => {
     expect(wrapper.find(Restart).length).toBe(1);
   });
 });
