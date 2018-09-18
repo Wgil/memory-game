@@ -5,6 +5,7 @@ import Game from "../../containers/Game";
 import GameOver from "../../components/GameOver";
 import cards from "../../cards";
 import Board from "../../components/Board";
+import Menu from "../../components/Menu";
 
 describe("Game", () => {
   let wrapper;
@@ -143,23 +144,80 @@ describe("Game", () => {
         expect(wrapper.find(Board).length).toBe(0);
       });
 
+      it("`gameOver` state should be true", () => {
+        expect(wrapper.state().gameOver).toBeTruthy();
+      });
+
+      it("`cardsPlayed` state should be 0", () => {
+        expect(wrapper.state().cardsPlayed).toBe(0);
+      });
+
       it("should render a `GameOver` component", () => {
         expect(wrapper.find(GameOver).length).toBe(1);
       });
 
       describe("then user restart the game", () => {
         beforeEach(() => {
+          jest.useFakeTimers();
           wrapper.find(GameOver).simulate("restart");
         });
 
+        it("`gameOver` state should be false", () => {
+          jest.runAllTimers();
+          expect(wrapper.state().gameOver).toBeFalsy();
+        });
+
+        it("`flippedCards` should be empty", () => {
+          jest.runAllTimers();
+          expect(wrapper.state().flippedCards).toEqual([]);
+        });
+
         it("should render a `Board`", () => {
+          jest.runAllTimers();
           expect(wrapper.find(Board).length).toBe(1);
         });
 
         it("should not render a `GameOver` component", () => {
+          jest.runAllTimers();
           expect(wrapper.find(GameOver).length).toBe(0);
         });
       });
+    });
+
+    describe("and then clicks the Menu restart button", () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+        wrapper.find(Menu).simulate("restart");
+      });
+
+      it("the card should flip back", () => {
+        jest.runAllTimers();
+        const card = wrapper
+          .state()
+          .cards.find(c => c.id === firstClickedCardId);
+
+        expect(card.flipped).toBeFalsy();
+        expect(wrapper.state().flippedCards).toEqual([]);
+      });
+    });
+  });
+
+  describe("and then clicks the Menu restart button", () => {
+    beforeEach(() => {
+      wrapper.setState({ cardsPlayed: 2 });
+      wrapper.find(Menu).simulate("restart");
+    });
+
+    it("clicks it once again and he cannot reset the game", () => {
+      wrapper.find(Menu).simulate("restart");
+      expect(wrapper.state().restarting).toBeTruthy();
+      expect(wrapper.state().cardsPlayed).toBe(2);
+    });
+
+    it("should reset the state", () => {
+      jest.runAllTimers();
+      expect(wrapper.state().restarting).toBeFalsy();
+      expect(wrapper.state().cardsPlayed).toBe(0);
     });
   });
 });

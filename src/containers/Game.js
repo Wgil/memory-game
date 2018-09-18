@@ -11,15 +11,26 @@ class GameContainer extends Component {
     cards: [],
     flippedCards: [],
     cardsPlayed: 0,
-    gameOver: false
+    gameOver: false,
+    restarting: false
   };
 
   restartGame = () => {
+    if (this.state.restarting) return false;
+
+    this.setState({ restarting: true }, () => {
+      this.state.flippedCards.map(card => this.flipCard(card));
+      setTimeout(this.resetGameState, 500);
+    });
+  };
+
+  resetGameState = () => {
     this.setState({
       cards: this.shuffleCards(cards),
       cardsPlayed: 0,
       flippedCards: [],
-      gameOver: false
+      gameOver: false,
+      restarting: false
     });
   };
 
@@ -60,9 +71,11 @@ class GameContainer extends Component {
     );
   };
 
-  flipCards = cards => cards.map(this.flipCard);
+  flipCards = cards => cards.map(card => this.flipCard(card));
 
-  clearFlippedCards = () => this.setState({ flippedCards: [] });
+  clearFlippedCards = () => {
+    this.setState({ flippedCards: [] });
+  };
 
   addFlippedCard = card => {
     card = Object.assign({}, card, { flipped: true });
@@ -78,7 +91,7 @@ class GameContainer extends Component {
   };
 
   verifyPairs = () => {
-    this.areFlippedCardsPair()
+    this.state.flippedCards.length && this.areFlippedCardsPair()
       ? this.playCards()
       : this.flipCards(this.state.flippedCards);
   };
@@ -98,9 +111,12 @@ class GameContainer extends Component {
   playCards = () => this.state.flippedCards.map(this.playCard);
 
   cardCanFlip = card => {
-    const { flippedCards } = this.state;
+    const { flippedCards, restarting } = this.state;
     return (
-      !card.played && !card.flipped && flippedCards.length !== MAX_FLIPPED_CARDS
+      !restarting &&
+      !card.played &&
+      !card.flipped &&
+      flippedCards.length !== MAX_FLIPPED_CARDS
     );
   };
 
@@ -131,11 +147,14 @@ class GameContainer extends Component {
     return (
       <React.Fragment>
         {gameOver ? (
-          <GameOver onRestart={restartGame} />
+          <GameOver
+            onRestart={restartGame}
+            restarting={this.state.restarting}
+          />
         ) : (
           <Board cards={cards} onCardClick={handleCardClick} />
         )}
-        <Menu onRestart={restartGame} />
+        <Menu onRestart={restartGame} restarting={this.state.restarting} />
       </React.Fragment>
     );
   }

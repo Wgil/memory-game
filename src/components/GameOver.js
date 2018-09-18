@@ -19,11 +19,11 @@ const Container = styled.div`
   animation: ${FadeIn} 0.5s ease-in forwards;
 `;
 
-const GameOver = ({ onRestart }) => (
+const GameOver = ({ onRestart, restarting }) => (
   <Container>
     <h1>Congratulations!</h1>
     <Timer />
-    <Restart onRestart={onRestart} />
+    <Restart onRestart={onRestart} restarting={restarting} />
   </Container>
 );
 
