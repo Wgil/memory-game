@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import Board from "./../../components/Board";
-import CardContainer from "./../../containers/CardContainer";
+import Card from "./../../components/Card";
 
 describe("Board", () => {
   let wrapper;
@@ -59,20 +59,20 @@ describe("Board", () => {
     });
   });
 
-  it("should render 2 `CardContainer`", () => {
-    expect(wrapper.find(CardContainer).length).toBe(2);
+  it("should render 2 `Card`", () => {
+    expect(wrapper.find(Card).length).toBe(2);
   });
 
   describe("User clicks a card", () => {
     let card;
     beforeEach(() => {
-      card = wrapper.find(CardContainer).first();
+      card = wrapper.find(Card).first();
       card.simulate("click");
     });
 
     it("and `onCardClick` prop should be called with the card ID", () => {
       const call = onCardClick.mock.calls[0];
-      expect(call[0]).toBe(card.props().card.id);
+      expect(call[0]).toBe(card.props().id);
     });
   });
 });
