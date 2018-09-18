@@ -29,10 +29,10 @@ const Link = styled.a`
   text-decoration: none;
 `;
 
-const Menu = ({ onRestart }) => (
+const Menu = ({ onRestart, restarting }) => (
   <Container>
     <Timer />
-    <Restart onRestart={onRestart} />
+    <Restart onRestart={onRestart} restarting={restarting} />
     <Link href="https://github.com/Wgil/memory-game" target="_BLANK">
       <Octicon name="mark-github" mega />
     </Link>

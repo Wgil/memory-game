@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import CardPropType from "../propTypes/CardPropType";
-import CardContainer from "../containers/CardContainer";
+import Card from "../components/Card";
 import FadeIn from "./FadeIn";
 
 const Grid = styled.div`
@@ -15,17 +15,15 @@ const Grid = styled.div`
   animation: ${FadeIn} 0.5s ease-in forwards;
 `;
 
-const Board = ({ cards, onCardClick }) => (
-  <Grid>
-    {cards.map(card => (
-      <CardContainer
-        key={card.id}
-        card={card}
-        onClick={() => onCardClick(card.id)}
-      />
-    ))}
-  </Grid>
-);
+const Board = ({ cards, onCardClick }) => {
+  return (
+    <Grid>
+      {cards.map(card => (
+        <Card key={card.id} onClick={() => onCardClick(card.id)} {...card} />
+      ))}
+    </Grid>
+  );
+};
 
 Board.propTypes = {
   cards: PropTypes.arrayOf(CardPropType).isRequired,
