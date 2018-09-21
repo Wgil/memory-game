@@ -3,10 +3,10 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import Restart from "./Restart";
-import Timer from "./Timer";
+import Timer from "./../containers/Timer";
 import Octicon from "react-octicon";
 
-const Container = styled.nav`
+const Container = styled.div`
   padding: 10px;
   grid-column-end: -1;
   justify-self: end;
@@ -29,9 +29,9 @@ const Link = styled.a`
   text-decoration: none;
 `;
 
-const Menu = ({ onRestart, restarting }) => (
+const Menu = ({ onRestart, restarting, isTimerRunning, onStop }) => (
   <Container>
-    <Timer />
+    <Timer started={isTimerRunning} restart={restarting} onStop={onStop} />
     <Restart onRestart={onRestart} restarting={restarting} />
     <Link href="https://github.com/Wgil/memory-game" target="_BLANK">
       <Octicon name="mark-github" mega />

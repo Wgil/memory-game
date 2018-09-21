@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import Restart from "./Restart";
-import Timer from "./Timer";
 import FadeIn from "./FadeIn";
 
 const Container = styled.div`
@@ -19,10 +18,10 @@ const Container = styled.div`
   animation: ${FadeIn} 0.5s ease-in forwards;
 `;
 
-const GameOver = ({ onRestart, restarting }) => (
+const GameOver = ({ onRestart, restarting, score }) => (
   <Container>
     <h1>Congratulations!</h1>
-    <Timer />
+    {score && <p>{score}</p>}
     <Restart onRestart={onRestart} restarting={restarting} />
   </Container>
 );
