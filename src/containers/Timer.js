@@ -10,7 +10,7 @@ class Timer extends Component {
 
   startTimer = () => {
     this.setState({ runningSince: Date.now() });
-    this.intervalID = setInterval(() => this.forceUpdate(), 50);
+    this.intervalID = setInterval(() => this.forceUpdate(), 500);
   };
 
   stopTimer = () => {
