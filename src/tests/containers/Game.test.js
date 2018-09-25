@@ -137,7 +137,7 @@ describe("Game", () => {
 
     describe("And there are no more cards to play", () => {
       beforeEach(() => {
-        wrapper.setState({ cardsPlayed: cards.length });
+        wrapper.setState({ cardsPlayed: cards.length, score: "00:00" });
       });
 
       it("should not render a `Board`", () => {
@@ -154,6 +154,13 @@ describe("Game", () => {
 
       it("should render a `GameOver` component", () => {
         expect(wrapper.find(GameOver).length).toBe(1);
+      });
+
+      it("should set the score", () => {
+        const menu = wrapper.find(Menu).first();
+        menu.simulate("stop", "05:00");
+
+        expect(wrapper.state().score).toBe("05:00");
       });
 
       describe("then user restart the game", () => {

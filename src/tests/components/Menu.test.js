@@ -2,14 +2,21 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import Menu from "../../components/Menu";
-import Timer from "../../components/Timer";
+import Timer from "../../containers/Timer";
 import Restart from "../../components/Restart";
 
 describe(`Menu`, () => {
   let wrapper;
-  let onRestart = jest.fn();
+  let fakeFn = jest.fn();
   beforeEach(() => {
-    wrapper = shallow(<Menu onRestart={onRestart} />);
+    wrapper = shallow(
+      <Menu
+        onRestart={fakeFn}
+        restarting={false}
+        isTimerRunning={false}
+        onStop={fakeFn}
+      />
+    );
   });
 
   it("should receive a `onRestart` prop", () => {

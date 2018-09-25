@@ -9,10 +9,12 @@ const Container = styled.div`
   height: 60px;
   border-radius: 100%;
   font-size: 25px;
-  color: #333;
   font-weight: 400;
+  color: ${({ started }) => (started ? "red" : "#333")};
 `;
 
-const Timer = () => <Container>00:00</Container>;
+const VisibleTimer = ({ started, time }) => (
+  <Container started={started}>{time}</Container>
+);
 
-export default Timer;
+export default VisibleTimer;

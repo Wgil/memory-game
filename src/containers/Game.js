@@ -6,13 +6,15 @@ import Menu from "../components/Menu";
 
 const MAX_FLIPPED_CARDS = 2;
 
-class GameContainer extends Component {
+class Game extends Component {
   state = {
     cards: [],
     flippedCards: [],
     cardsPlayed: 0,
     gameOver: false,
-    restarting: false
+    restarting: false,
+    isTimerRunning: false,
+    score: "00:00"
   };
 
   restartGame = () => {
@@ -30,7 +32,9 @@ class GameContainer extends Component {
       cardsPlayed: 0,
       flippedCards: [],
       gameOver: false,
-      restarting: false
+      restarting: false,
+      isTimerRunning: false,
+      score: 0
     });
   };
 
@@ -123,15 +127,23 @@ class GameContainer extends Component {
   areFlippedCardsPair = () =>
     this.state.flippedCards[0].id === this.state.flippedCards[1].pair_id;
 
+  startTimer = () => this.setState({ isTimerRunning: true });
+
+  setScore = score => this.setState({ score });
+
   handleCardClick = id => {
     const card = this.state.cards.find(card => card.id === id);
+
     if (!this.cardCanFlip(card)) return;
     this.flipCard(card);
+
+    if (this.state.isTimerRunning) return;
+    this.startTimer();
   };
 
   componentDidUpdate() {
     if (this.state.cardsPlayed === cards.length)
-      this.setState({ gameOver: true, cardsPlayed: 0 });
+      this.setState({ gameOver: true, cardsPlayed: 0, isTimerRunning: false });
   }
 
   componentDidMount() {
@@ -140,24 +152,31 @@ class GameContainer extends Component {
 
   render() {
     const {
-      state: { cards, gameOver },
+      state: { cards, gameOver, restarting, isTimerRunning, score },
       restartGame,
-      handleCardClick
+      handleCardClick,
+      setScore
     } = this;
     return (
       <React.Fragment>
         {gameOver ? (
           <GameOver
             onRestart={restartGame}
-            restarting={this.state.restarting}
+            restarting={restarting}
+            score={score}
           />
         ) : (
           <Board cards={cards} onCardClick={handleCardClick} />
         )}
-        <Menu onRestart={restartGame} restarting={this.state.restarting} />
+        <Menu
+          onRestart={restartGame}
+          restarting={restarting}
+          isTimerRunning={isTimerRunning}
+          onStop={setScore}
+        />
       </React.Fragment>
     );
   }
 }
 
-export default GameContainer;
+export default Game;
