@@ -14,7 +14,7 @@ class Game extends Component {
     gameOver: false,
     restarting: false,
     isTimerRunning: false,
-    score: 0
+    score: "00:00"
   };
 
   restartGame = () => {
@@ -129,7 +129,7 @@ class Game extends Component {
 
   startTimer = () => this.setState({ isTimerRunning: true });
 
-  setScore = score => this.setState({ score: score });
+  setScore = score => this.setState({ score });
 
   handleCardClick = id => {
     const card = this.state.cards.find(card => card.id === id);

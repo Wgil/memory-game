@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import Timer from "../../containers/Timer";
+import VisibleTimer from "../../components/VisibleTimer";
 
 jest.useFakeTimers();
 
@@ -41,10 +42,26 @@ describe(`Timer`, () => {
       window.Date.now = RealDate;
     });
 
+    it("should render a `VisibleTimer`", () => {
+      const timer = wrapper.find(VisibleTimer);
+      expect(timer.length).toBe(1);
+      expect(timer.props().started).toBe(wrapper.props().started);
+      expect(timer.props().time).toBe("00:00");
+    });
+
     describe("and passed down `started` as true", () => {
+      let timer;
+      beforeEach(() => {
+        timer = shallow(<Timer started={true} restart={false} />);
+      });
+
       it("should set `runningSince` state as the current date", () => {
-        const timer = shallow(<Timer started={true} restart={false} />);
         expect(timer.state().runningSince).toBe(Date.now());
+      });
+
+      it("unmounts and clears the interval", () => {
+        timer.unmount();
+        expect(clearInterval).toHaveBeenCalledWith(expect.any(Number));
       });
     });
 
@@ -79,7 +96,6 @@ describe(`Timer`, () => {
           });
         });
 
-        // We should mock the renderElapsedString thing
         describe("and then it's stopped", () => {
           beforeEach(() => {
             wrapper.setProps({ started: false });
@@ -89,11 +105,12 @@ describe(`Timer`, () => {
             jest.runOnlyPendingTimers();
             Date.now = jest.genMockFunction().mockReturnValue(12345);
             expect(wrapper.state().runningSince).toBe(FakeDateValue);
+            expect(clearInterval).toHaveBeenCalledWith(expect.any(Number));
           });
 
           it("`onStop` prop should be called", () => {
             expect(onStop.mock.calls.length).toBe(1);
-            // expect(onStop.mock.calls[0][0]).toBe("00:00"); // WATCH OUT
+            expect(onStop.mock.calls[0][0]).toBe("00:00");
           });
 
           describe("and then it's restarted", () => {
@@ -105,6 +122,7 @@ describe(`Timer`, () => {
               jest.runOnlyPendingTimers();
               Date.now = jest.genMockFunction().mockReturnValue(12345);
               expect(wrapper.state().runningSince).toBe(null);
+              expect(clearInterval).toHaveBeenCalledWith(expect.any(Number));
             });
 
             it("`runningSince` state should be null", () => {

@@ -9,13 +9,8 @@ export const renderElapsedString = (elapsed, runningSince) => {
 const millisecondsToHuman = ms => {
   const seconds = Math.floor((ms / 1000) % 60);
   const minutes = Math.floor((ms / 1000 / 60) % 60);
-  const hours = Math.floor(ms / 1000 / 60 / 60);
 
-  const humanized = [
-    hours ? pad(hours.toString(), 2) : undefined,
-    pad(minutes.toString(), 2),
-    pad(seconds.toString(), 2)
-  ]
+  const humanized = [pad(minutes.toString(), 2), pad(seconds.toString(), 2)]
     .filter(a => a)
     .join(":");
 

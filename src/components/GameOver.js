@@ -21,13 +21,14 @@ const Container = styled.div`
 const GameOver = ({ onRestart, restarting, score }) => (
   <Container>
     <h1>Congratulations!</h1>
-    {score && <p>{score}</p>}
+    <p>{score}</p>
     <Restart onRestart={onRestart} restarting={restarting} />
   </Container>
 );
 
 GameOver.propTypes = {
-  onRestart: PropTypes.func.isRequired
+  onRestart: PropTypes.func.isRequired,
+  score: PropTypes.string.isRequired
 };
 
 export default GameOver;
