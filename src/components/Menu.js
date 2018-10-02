@@ -7,13 +7,11 @@ import Timer from "./../containers/Timer";
 import Octicon from "react-octicon";
 
 const Container = styled.div`
-  padding: 10px;
+  padding: 5px;
   grid-column-end: -1;
   justify-self: end;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  background: rgba(191, 191, 191, 0.1);
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   font-size: 20px;
 `;
 
@@ -24,7 +22,7 @@ const Link = styled.a`
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  font-size: 25px;
+  font-size: 20px;
   color: #333;
   text-decoration: none;
 `;

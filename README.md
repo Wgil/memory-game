@@ -1,5 +1,7 @@
 # Memory Game
 
+https://wgil.github.io/memory-game/
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Build Status](https://travis-ci.com/Wgil/memory-game.svg?branch=development)](https://travis-ci.com/Wgil/memory-game) [![codecov](https://codecov.io/gh/Wgil/memory-game/branch/development/graph/badge.svg)](https://codecov.io/gh/Wgil/memory-game)
 
 This project is created to have some fun while learning React and all its ecosystem. Contributions of any kind are all welcome. Feel free to open an issue to suggest features, report bugs, improve the code or get help. Before submitting a pull request, please check out the [contributing guidelines](https://github.com/Wgil/memory-game/blob/development/CONTRIBUTING.md) for more details about the project standards.
@@ -30,6 +32,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- prettier-ignore -->
 | [<img src="https://avatars0.githubusercontent.com/u/12837326?v=4" width="100px;"/><br /><sub><b>Jesus Morales</b></sub>](https://github.com/Hmerin)<br />[🚇](#infra-Hmerin "Infrastructure (Hosting, Build-Tools, etc)") | [<img src="https://avatars3.githubusercontent.com/u/35552662?v=4" width="100px;"/><br /><sub><b>Michael Majdanski</b></sub>](https://github.com/mmajdanski)<br />[💻](https://github.com/Warao/Memory-game/commits?author=mmajdanski "Code") |
 | :---: | :---: |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
