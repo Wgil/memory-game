@@ -17,8 +17,8 @@ const BACK_BACKGROUND = "#ffb400cc";
 
 const Container = styled.div`
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 25vmin;
+  height: 25vmin;
   border-style: solid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: transform 0.5s;
@@ -59,10 +59,6 @@ const Side = styled.div`
 
 const Back = styled(Side)`
   background: ${({ played }) => (!played ? BACK_BACKGROUND : "none")};
-  transition: opacity 0.5s;
-  &:hover {
-    opacity: 0.8;
-  }
 `;
 
 const Front = styled(Side)`

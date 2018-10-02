@@ -8,7 +8,7 @@ const Container = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 400;
   color: ${({ started }) => (started ? "red" : "#333")};
 `;

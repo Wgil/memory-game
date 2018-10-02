@@ -8,10 +8,10 @@ import FadeIn from "./FadeIn";
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 25vmin);
   align-self: center;
   grid-column-start: 2;
-  grid-gap: 20px;
+  grid-gap: 3vmin;
   animation: ${FadeIn} 0.5s ease-in forwards;
 `;
 

@@ -21,7 +21,7 @@ const Container = styled.div`
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  font-size: 55px;
+  font-size: 40px;
   color: #ffb400cc;
   font-weight: bold;
   transition: transform 0.1s;
