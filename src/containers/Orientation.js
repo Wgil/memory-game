@@ -1,16 +1,29 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
+const isMobileDevice = () =>
+  typeof window.orientation !== "undefined" ||
+  navigator.userAgent.indexOf("IEMobile") !== -1;
+
+const isLandscape = () => Math.abs(window.orientation) === 90;
+
+const orientationType = () => {
+  if (isMobileDevice()) {
+    return isLandscape() ? "landscape-primary" : "portrait";
+  } else {
+    return window.screen.orientation.type;
+  }
+};
+
 class Orientation extends Component {
   state = {
-    type: ""
+    type: orientationType()
   };
 
   componentDidMount() {
     window.addEventListener("orientationchange", () => {
-      this.setState({ type: window.screen.orientation.type });
+      this.setState({ type: orientationType() });
     });
-    this.setState({ type: window.screen.orientation.type });
   }
 
   render() {
