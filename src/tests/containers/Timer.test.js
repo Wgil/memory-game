@@ -30,7 +30,7 @@ describe(`Timer`, () => {
     let FakeDateValue = 123;
     const RealDate = Date.now;
     beforeEach(() => {
-      Date.now = jest.genMockFunction().mockReturnValue(FakeDateValue);
+      Date.now = jest.fn().mockReturnValue(FakeDateValue);
       wrapper = shallow(
         <Timer started={false} restart={false} onStop={onStop} />
       );
@@ -87,7 +87,7 @@ describe(`Timer`, () => {
         describe("500ms after", () => {
           FakeDateValue = 1234;
           beforeEach(() => {
-            Date.now = jest.genMockFunction().mockReturnValue(FakeDateValue);
+            Date.now = jest.fn().mockReturnValue(FakeDateValue);
             jest.runOnlyPendingTimers();
           });
 
@@ -103,7 +103,7 @@ describe(`Timer`, () => {
 
           it("the interval should be cleared", () => {
             jest.runOnlyPendingTimers();
-            Date.now = jest.genMockFunction().mockReturnValue(12345);
+            Date.now = jest.fn().mockReturnValue(12345);
             expect(wrapper.state().runningSince).toBe(FakeDateValue);
             expect(clearInterval).toHaveBeenCalledWith(expect.any(Number));
           });
@@ -120,7 +120,7 @@ describe(`Timer`, () => {
 
             it("the interval should be cleared", () => {
               jest.runOnlyPendingTimers();
-              Date.now = jest.genMockFunction().mockReturnValue(12345);
+              Date.now = jest.fn().mockReturnValue(12345);
               expect(wrapper.state().runningSince).toBe(null);
               expect(clearInterval).toHaveBeenCalledWith(expect.any(Number));
             });
